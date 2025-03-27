@@ -12,8 +12,6 @@ docs:
 	ansible-doctor .
 
 init:
-	pip install pre-commit
-	@make pre-commit-config
 	@make install-requirements
 
 pre-commit-config:

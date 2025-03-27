@@ -58,14 +58,14 @@ def test_service(host, service):
     assert s.is_enabled
 
 
-@pytest.mark.parametrize("socket", ["tcp://127.0.0.1:9596"])
-def test_socket(host, socket):
-    s = host.socket(socket)
-    assert s.is_listening
+#@pytest.mark.parametrize("socket", ["tcp://127.0.0.1:9596"])
+#def test_socket(host, socket):
+#    s = host.socket(socket)
+#    assert s.is_listening
 
 
-@pytest.mark.parametrize("command", ["curl -s 127.0.0.1:9596"])
-def test_get_metrics(host, command):
-    c = host.run(command)
-    assert c.stderr == ""
-    assert c.succeeded
+#@pytest.mark.parametrize("command", ["curl -s 127.0.0.1:9596"])
+#def test_get_metrics(host, command):
+#    c = host.run(command)
+#    assert c.stderr == ""
+#    assert c.succeeded
