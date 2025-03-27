@@ -1,0 +1,46 @@
+---
+- name: lodestar - create group
+  group:
+    name: "{{ lodestar_beacon_node_group }}"
+    state: present
+
+- name: lodestar - user configuration
+  user:
+    name: "{{ lodestar_beacon_node_user }}"
+    group: "{{ lodestar_beacon_node_group }}"
+    append: true
+    shell: /usr/sbin/nologin
+    create_home: false
+
+- name: lodestar - create base directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ lodestar_beacon_node_general_owner }}"
+    group: "{{ lodestar_beacon_node_general_owner }}"
+  with_items:
+    - "{{ lodestar_beacon_node_dir_base }}"
+    - "{{ lodestar_beacon_node_dir_base_data }}"
+    - "{{ lodestar_beacon_node_dir_base_config }}"
+    - "{{ lodestar_beacon_node_dir_base_log }}"
+
+- name: lodestar - create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ lodestar_beacon_node_user }}"
+    group: "{{ lodestar_beacon_node_group }}"
+  with_items:
+    - "{{ lodestar_beacon_node_dir_data }}"
+    - "{{ lodestar_beacon_node_dir_config }}"
+    - "{{ lodestar_beacon_node_dir_log }}"
+
+- name: lodestar - install required apt packages
+  apt:
+    name:
+      - curl
+      - openssl
+      - gcc
+    update_cache: true

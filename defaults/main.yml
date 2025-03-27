@@ -1,0 +1,302 @@
+---
+# @var lodestar_beacon_node_user:description: >
+# Username for the Lodestar beacon node.
+lodestar_beacon_node_user: lodestar
+
+# @var lodestar_beacon_node_group:description: >
+# Group for running the Lodestar beacon node.
+lodestar_beacon_node_group: lodestar
+
+# @var lodestar_beacon_node_general_owner:description: >
+# General owner for Lodestar system files.
+lodestar_beacon_node_general_owner: root
+
+# @var lodestar_beacon_node_dir_base:description: >
+# Lodestar base directory.
+lodestar_beacon_node_dir_base: "/opt"
+
+# @var lodestar_beacon_node_dir_base_data:description: >
+# Base directory for Lodestar data (derived from base directory).
+lodestar_beacon_node_dir_base_data: "{{ lodestar_beacon_node_dir_base }}/data"
+
+# @var lodestar_beacon_node_dir_base_config:description: >
+# Base directory for Lodestar configuration files (derived from base directory).
+lodestar_beacon_node_dir_base_config: "{{ lodestar_beacon_node_dir_base }}/config"
+
+# @var lodestar_beacon_node_dir_data:description: >
+# Directory for Lodestar beacon node data.
+lodestar_beacon_node_dir_data: "{{ lodestar_beacon_node_dir_base_data }}/lodestar-beacon-node"
+
+# @var lodestar_beacon_node_dir_config:description: >
+# Directory for Lodestar beacon node configuration files.
+lodestar_beacon_node_dir_config: "{{ lodestar_beacon_node_dir_base_config }}/lodestar-beacon-node"
+
+# @var lodestar_beacon_node_dir_base_log:description: >
+# Base directory for Lodestar log files.
+lodestar_beacon_node_dir_base_log: "{{ lodestar_beacon_node_dir_base }}/log"
+
+# @var lodestar_beacon_node_dir_log:description: >
+# Directory for Lodestar beacon node log files.
+lodestar_beacon_node_dir_log: "{{ lodestar_beacon_node_dir_base_log }}/lodestar-beacon-node"
+
+# @var lodestar_beacon_node_reinstall:description: >
+# Flag to control reinstallation of the Lodestar beacon node.
+lodestar_beacon_node_reinstall: false
+
+# @var lodestar_beacon_node_rc_config_path:description: >
+# Path to the Lodestar runtime configuration file.
+lodestar_beacon_node_rc_config_path: "{{ lodestar_beacon_node_dir_config }}/rc-config.yml"
+
+# @var lodestar_beacon_node_jwt_secret:description: >
+# File path to the JWT secret for engine API authentication.
+lodestar_beacon_node_jwt_secret: "{{ lodestar_beacon_node_dir_config }}/jwt"
+
+# @var lodestar_beacon_node_dir_systemd:description: >
+# Directory where systemd service files are stored.
+lodestar_beacon_node_dir_systemd: "/lib/systemd/system"
+
+# @var lodestar_beacon_node_dir_binary:description: >
+# Directory for installing the Lodestar binary.
+lodestar_beacon_node_dir_binary: "/usr/local/bin"
+
+# @var lodestar_beacon_node_binary_version:description: >
+# Version of the Lodestar binary.
+lodestar_beacon_node_binary_version: "1.28.1"
+
+# @var lodestar_beacon_node_binary_download_url:description: >
+# URL to download the Lodestar binary (includes version).
+lodestar_beacon_node_binary_download_url: "https://github.com/ChainSafe/lodestar/releases/download/v{{ lodestar_beacon_node_binary_version }}/lodestar-v{{ lodestar_beacon_node_binary_version }}-linux-amd64.tar.gz"
+
+# @var lodestar_beacon_node_systemd_service_name:description: >
+# Systemd service name for the Lodestar beacon node.
+lodestar_beacon_node_systemd_service_name: lodestar-beacon-node
+
+# @var lodestar_beacon_node_binary_name:description: >
+# Name of the Lodestar binary executable.
+lodestar_beacon_node_binary_name: lodestar
+
+# @var lodestar_beacon_node_launch_mode:description: >
+# Launch mode for the Lodestar node (beacon, validator, lightclient, dev).
+lodestar_beacon_node_launch_mode: beacon
+
+# @var lodestar_beacon_node_default_config:description: >
+# List of default CLI configuration options for the Lodestar beacon node.
+lodestar_beacon_node_default_config:
+  - name: "dataDir"
+    description: "Lodestar root data directory (string)"
+    value: "{{ lodestar_beacon_node_dir_data }}"
+  - name: "network"
+    description: "Name of the Ethereum Consensus chain network to join (string)"
+    value: "hoodi"
+  - name: "forceCheckpointSync"
+    description: "Force sync from checkpoint state even if DB is within WSS period (boolean)"
+    value: false
+  - name: "ignoreWeakSubjectivityCheck"
+    description: "Ignore failing the weak subjectivity check (boolean)"
+    value: false
+  - name: "logLevel"
+    description: "Logging verbosity for terminal output (string)"
+    value: "info"
+  - name: "logFileLevel"
+    description: "Logging verbosity level for file (string)"
+    value: "debug"
+  - name: "logFileDailyRotate"
+    description: "Number of log files to retain during daily rotation (number)"
+    value: 5
+  - name: "rest"
+    description: "Enable/disable the HTTP API (boolean)"
+    value: true
+  - name: "rest.namespace"
+    description: "Namespaces to expose for the HTTP API (string[])"
+    value:
+      - "beacon"
+      - "config"
+      - "debug"
+      - "events"
+      - "node"
+      - "validator"
+      - "lightclient"
+  - name: "rest.cors"
+    description: "CORS setting for the HTTP API (string)"
+    value: "*"
+  - name: "rest.address"
+    description: "HTTP API host address (string)"
+    value: "127.0.0.1"
+  - name: "rest.port"
+    description: "HTTP API port (number)"
+    value: 9596
+  - name: "suggestedFeeRecipient"
+    description: "Default EL block fee recipient (20-byte hex) (string)"
+    value: "0x0000000000000000000000000000000000000000"
+  - name: "emitPayloadAttributes"
+    description: "Emit execution payload attributes via SSE (boolean)"
+    value: false
+  - name: "eth1"
+    description: "Follow the eth1 chain (boolean)"
+    value: true
+  - name: "eth1.providerUrls"
+    description: "List of ETH1 node RPC URLs (string[])"
+    value:
+      - "http://localhost:8545"
+  - name: "execution.urls"
+    description: "List of Execution client engine API URLs (string[])"
+    value:
+      - "http://localhost:8551"
+  - name: "execution.timeout"
+    description: "Timeout in ms for execution engine calls (number)"
+    value: 12000
+  - name: "execution.retries"
+    description: "Number of retries for execution engine calls (number)"
+    value: 2
+  - name: "execution.retryDelay"
+    description: "Delay in ms between execution engine retries (number)"
+    value: 2000
+  - name: "builder.url"
+    description: "Builder API URL (string)"
+    value: "http://localhost:8661"
+  - name: "builder.timeout"
+    description: "Timeout in ms for builder API (number)"
+    value: 12000
+  - name: "metrics.port"
+    description: "Port for Prometheus metrics HTTP server (number)"
+    value: 8008
+  - name: "metrics.address"
+    description: "HTTP server address for Prometheus metrics (string)"
+    value: "127.0.0.1"
+  - name: "monitoring.interval"
+    description: "Interval in ms between sending client stats (number)"
+    value: 60000
+  - name: "discv5"
+    description: "Enable discv5 peer discovery (boolean)"
+    value: true
+  - name: "listenAddress"
+    description: "IPv4 address for p2p communication (string)"
+    value: "0.0.0.0"
+  - name: "port"
+    description: "TCP/UDP port for IPv4 (number)"
+    value: 9000
+  - name: "port6"
+    description: "TCP/UDP port for IPv6 (number)"
+    value: 9090
+  - name: "bootnodes"
+    description: "List of bootnodes for discv5 discovery (string[])"
+    value:
+      - "enr:-Ku4QHqVeJ8PPICcWk1vSn_XcSkjOkNiTg6Fmii5j6vUQgvzMc9L1goFnLKgXqBJspJjIsB91LTOleFmyWWrFVATGngBh2F0dG5ldHOIAAAAAAAAAACEZXRoMpC1MD8qAAAAAP__________gmlkgnY0gmlwhAMRHkWJc2VjcDI1NmsxoQKLVXFOhp2uX6jeT0DvvDpPcU8FWMjQdR4wMuORMhpX24N1ZHCCIyg"
+      - "enr:-Ku4QG-2_Md3sZIAUebGYT6g0SMskIml77l6yR-M_JXc-UdNHCmHQeOiMLbylPejyJsdAPsTHJyjJB2sYGDLe0dn8uYBh2F0dG5ldHOIAAAAAAAAAACEZXRoMpC1MD8qAAAAAP__________gmlkgnY0gmlwhBLY-NyJc2VjcDI1NmsxoQORcM6e19T1T9gi7jxEZjk_sjVLGFscUNqAY9obgZaxbIN1ZHCCIyg"
+      - "enr:-Ku4QPn5eVhcoF1opaFEvg1b6JNFD2rqVkHQ8HApOKK61OIcIXD127bKWgAtbwI7pnxx6cDyk_nI88TrZKQaGMZj0q0Bh2F0dG5ldHOIAAAAAAAAAACEZXRoMpC1MD8qAAAAAP__________gmlkgnY0gmlwhDayLMaJc2VjcDI1NmsxoQK2sBOLGcUb4AwuYzFuAVCaNHA-dy24UuEKkeFNgCVCsIN1ZHCCIyg"
+      - "enr:-Ku4QEWzdnVtXc2Q0ZVigfCGggOVB2Vc1ZCPEc6j21NIFLODSJbvNaef1g4PxhPwl_3kax86YPheFUSLXPRs98vvYsoBh2F0dG5ldHOIAAAAAAAAAACEZXRoMpC1MD8qAAAAAP__________gmlkgnY0gmlwhDZBrP2Jc2VjcDI1NmsxoQM6jr8Rb1ktLEsVcKAPa08wCsKUmvoQ8khiOl_SLozf9IN1ZHCCIyg"
+  - name: "targetPeers"
+    description: "Target number of connected peers (number)"
+    value: 100
+  - name: "subscribeAllSubnets"
+    description: "Subscribe to all subnets (boolean)"
+    value: false
+  - name: "disablePeerScoring"
+    description: "Disable peer scoring (boolean)"
+    value: false
+  - name: "mdns"
+    description: "Enable mDNS local peer discovery (boolean)"
+    value: false
+
+# @var lodestar_beacon_node_custom_config:description: >
+# Custom configuration options for the Lodestar beacon node client.
+lodestar_beacon_node_custom_config: {}
+  # - name: "paramsFile"
+  #   description: "Network configuration file (string)"
+  #   value: null
+  # - name: "terminal-total-difficulty-override"
+  #   description: "Terminal PoW block TTD override (string)"
+  #   value: null
+  # - name: "terminal-block-hash-override"
+  #   description: "Terminal PoW block hash override (string)"
+  #   value: null
+  # - name: "terminal-block-hash-epoch-override"
+  #   description: "Terminal PoW block hash override activation epoch (string)"
+  #   value: null
+  # - name: "genesisStateFile"
+  #   description: "Path or URL to a genesis state file (ssz-encoded) (string)"
+  #   value: null
+  # - name: "checkpointSyncUrl"
+  #   description: "Fetch weak subjectivity state from Beacon Node API (string)"
+  #   value: null
+  # - name: "checkpointState"
+  #   description: "Set a checkpoint state to start syncing from (string)"
+  #   value: null
+  # - name: "wssCheckpoint"
+  #   description: "Weak subjectivity checkpoint (string)"
+  #   value: null
+  # - name: "persistNetworkIdentity"
+  #   description: "Reuse the same peer-id across restarts (boolean)"
+  #   value: null
+  # - name: "private"
+  #   description: "Disable sending implementation details over p2p (boolean)"
+  #   value: null
+  # - name: "validatorMonitorLogs"
+  #   description: "Log validator monitor events at info level (boolean)"
+  #   value: null
+  # - name: "disableLightClientServer"
+  #   description: "Disable light client server (boolean)"
+  #   value: null
+  # - name: "logFile"
+  #   description: "Path to persistent log file (string)"
+  #   value: null
+  # - name: "rest.swaggerUI"
+  #   description: "Enable Swagger UI at /documentation (boolean)"
+  #   value: null
+  # - name: "chain.archiveBlobEpochs"
+  #   description: "Number of epochs to retain finalized blobs (number)"
+  #   value: null
+  # - name: "execution.engineMock"
+  #   description: "Use a mock execution engine (development only) (boolean)"
+  #   value: null
+  # - name: "jwtSecret"
+  #   description: "File path to shared hex JWT secret for engine API auth (string)"
+  #   value: null
+  # - name: "jwtId"
+  #   description: "Optional identifier in JWT tokens (string)"
+  #   value: null
+  # - name: "builder"
+  #   description: "Enable builder interface (boolean)"
+  #   value: null
+  # - name: "builder.faultInspectionWindow"
+  #   description: "Slots window for missed slots circuit breaker (number)"
+  #   value: null
+  # - name: "builder.allowedFaults"
+  #   description: "Number of missed slots allowed (number)"
+  #   value: null
+  # - name: "metrics"
+  #   description: "Enable Prometheus metrics HTTP server (boolean)"
+  #   value: null
+  # - name: "monitoring.endpoint"
+  #   description: "Remote endpoint to send client stats (string)"
+  #   value: null
+  # - name: "discoveryPort"
+  #   description: "UDP port for discovery (number)"
+  #   value: null
+  # - name: "listenAddress6"
+  #   description: "IPv6 address for p2p UDP/TCP (string)"
+  #   value: null
+  # - name: "discoveryPort6"
+  #   description: "IPv6 UDP port for discovery (number)"
+  #   value: null
+  # - name: "enr.ip"
+  #   description: "Override ENR IPv4 address (string)"
+  #   value: null
+  # - name: "enr.tcp"
+  #   description: "Override ENR TCP port (number)"
+  #   value: null
+  # - name: "enr.udp"
+  #   description: "Override ENR UDP port (number)"
+  #   value: null
+  # - name: "enr.ip6"
+  #   description: "Override ENR IPv6 address (string)"
+  #   value: null
+  # - name: "enr.tcp6"
+  #   description: "Override ENR IPv6 TCP port (number)"
+  #   value: null
+  # - name: "enr.udp6"
+  #   description: "Override ENR IPv6 UDP port (number)"
+  #   value: null
+  # - name: "nat"
+  #   description: "Allow configuration of non-local addresses (boolean)"
+  #   value: null

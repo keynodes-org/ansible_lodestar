@@ -1,0 +1,6 @@
+ansible>=2.9.0
+ansible-doctor>=7.0.3
+Jinja2==3.0.3
+molecule==25.2.0
+molecule-docker==2.1.0
+pytest-testinfra==6.5.0

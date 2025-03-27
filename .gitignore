@@ -1,0 +1,65 @@
+*.tar.gz
+.vault_pass
+.vault_password_file
+vault_pass.txt
+*.retry
+.secret/
+.secrets/
+*.secret
+*.token
+
+# ---------------------------
+# Python-related artifacts
+# ---------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+.eggs/
+.env
+.venv
+venv/
+venv3/
+
+# tox
+.tox/
+
+# Poetry
+.poetry/
+poetry.lock
+
+
+# ---------------------------
+# Editor / IDE files
+# ---------------------------
+*.swp
+*.swo
+.*.swp
+*~
+.idea/
+.vscode/
+.vscode-test/
+
+# ---------------------------
+# Build / Dist artifacts
+# ---------------------------
+build/
+dist/
+coverage/
+htmlcov/
+
+# ---------------------------
+# Misc
+# ---------------------------
+# Log files
+*.log
+
+# Local config overrides
+.local/
+.local_*
+.local.yml
+.local.yaml
+local_settings.yml

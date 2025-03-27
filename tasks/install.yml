@@ -1,0 +1,16 @@
+---
+- name: lodestar - check lodestar is installed
+  stat:
+    path: "{{ lodestar_beacon_node_dir_binary }}/lodestar"
+  register: lodestar_binary
+
+
+- name: lodestar - download and extract binary
+  unarchive:
+    src: "{{ lodestar_beacon_node_binary_download_url }}"
+    dest: "{{ lodestar_beacon_node_dir_binary }}"
+    owner: "{{ lodestar_beacon_node_user }}"
+    group: "{{ lodestar_beacon_node_group }}"
+    remote_src: true
+    mode: "0755"
+  when: (not lodestar_binary.stat.exists) or (lodestar_beacon_node_reinstall) 

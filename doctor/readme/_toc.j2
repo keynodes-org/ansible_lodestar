@@ -1,0 +1,16 @@
+## Auto-generated
+
+{% set var = role.var | default({}) %}
+{% if var %}
+- [Defaults](#default-vars)
+{% for key, item in var | dictsort %}
+  - [{{ key }}](#{{ key }})
+{% endfor %}
+{% endif %}
+{% if tag %}
+- [Tags](#tags)
+{% endif %}
+
+- [Dependencies](#dependencies)
+
+---

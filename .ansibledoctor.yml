@@ -1,0 +1,12 @@
+---
+logging:
+  level: info
+custom_header: doctor/readme/HEADER.md
+exclude_files:
+  - collections/
+  - molecule/
+  - files/
+  - venv/
+force_overwrite: true
+template_dir: doctor
+template: readme
