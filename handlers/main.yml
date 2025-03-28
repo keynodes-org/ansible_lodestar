@@ -1,0 +1,7 @@
+---
+- name: lodestar - restart
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+    name: "{{ lodestar_beacon_node_systemd_service_name }}"

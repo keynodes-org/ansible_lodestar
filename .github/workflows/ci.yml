@@ -1,0 +1,24 @@
+name: Lodestar beacon node molecule test
+
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10.8'
+
+      - name: Initialize environment
+        run: |
+          make init
+
+      - name: Run Molecule tests
+        run: |
+          molecule --version
+          molecule -v test

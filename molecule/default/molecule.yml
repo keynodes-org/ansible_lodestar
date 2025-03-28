@@ -1,0 +1,46 @@
+---
+driver:
+  name: docker
+platforms:
+  - name: lodestar-ubuntu22
+    image: jrei/systemd-ubuntu:22.04
+    command: /sbin/init
+    cgroupns_mode: host
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    privileged: true
+    environment:
+      ANSIBLE_USER: root
+    tmpfs:
+      - /run
+      - /tmp
+      - /run/lock
+scenario:
+  test_sequence:
+    - syntax
+    - destroy
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - verify
+    - destroy
+provisioner:
+  name: ansible
+  playbooks:
+    prepare: prepare.yml
+    converge: converge.yml
+  options:
+    D: true
+verifier:
+  name: testinfra
+  options:
+    verbose: true
+  env:
+    PYTEST_ADDOPTS: --color=yes
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .

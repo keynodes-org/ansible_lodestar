@@ -1,0 +1,29 @@
+{% for beacon_default_config in lodestar_beacon_node_default_config %}
+# {{ beacon_default_config.description }}
+{% if beacon_default_config.value is sequence and beacon_default_config.value is not string %}
+{{ beacon_default_config.name }}:
+{% for value in beacon_default_config.value %}
+  - "{{ value }}"
+{% endfor %}
+{% elif beacon_default_config.value is boolean %}
+{{ beacon_default_config.name }}: {{ beacon_default_config.value | lower }}
+{% else %}
+{{ beacon_default_config.name }}: {{ beacon_default_config.value }}
+{% endif %}
+{% endfor %}
+
+{% if lodestar_beacon_node_custom_config is defined and lodestar_beacon_node_custom_config | length > 0 %}
+{% for beacon_custom_config in lodestar_beacon_node_custom_config %}
+# {{ beacon_custom_config.description }}
+{% if beacon_custom_config.value is sequence and beacon_custom_config.value is not string %}
+{{ beacon_custom_config.name }}:
+{% for value in beacon_custom_config.value %}
+  - "{{ value }}"
+{% endfor %}
+{% elif beacon_custom_config.value is boolean %}
+{{ beacon_custom_config.name }}: {{ beacon_custom_config.value | lower }}
+{% else %}
+{{ beacon_custom_config.name }}: {{ beacon_custom_config.value }}
+{% endif %}
+{% endfor %}
+{% endif %}

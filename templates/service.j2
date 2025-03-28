@@ -1,0 +1,17 @@
+[Unit]
+Description=Lodestar beacon node service
+Documentation=https://chainsafe.github.io/lodestar/run/beacon-management/starting-a-node
+After=network.target
+
+[Service]
+User={{ lodestar_beacon_node_user }}
+Group={{ lodestar_beacon_node_group }}
+ExecStart={{ lodestar_beacon_node_dir_binary }}/{{ lodestar_beacon_node_binary_name }} \
+    {{ lodestar_beacon_node_launch_mode }} \
+    --rcConfig={{ lodestar_beacon_node_rc_config_path }}
+Restart=on-failure
+
+Environment="TMPDIR=/var/tmp"
+
+[Install]
+WantedBy=multi-user.target

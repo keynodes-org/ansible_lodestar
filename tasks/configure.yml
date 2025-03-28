@@ -1,0 +1,37 @@
+---
+- name: lodestar - check if JWT secret exists
+  stat:
+    path: "{{ lodestar_beacon_node_jwt_secret }}"
+  register: jwt_secret_file
+
+- name: lodestar - generate JWT secret if not exists
+  command: "openssl rand -hex -out {{ lodestar_beacon_node_jwt_secret }} 32"
+  when: not jwt_secret_file.stat.exists
+  become: true
+
+- name: lodestar - copy configuration file
+  template:
+    src: rc-config.yml.j2
+    dest: "{{ lodestar_beacon_node_rc_config_path }}"
+    owner: "{{ lodestar_beacon_node_user }}"
+    group: "{{ lodestar_beacon_node_group }}"
+    mode: "0644"
+  notify:
+    - lodestar - restart
+
+- name: lodestar - write systemd unit
+  template:
+    src: service.j2
+    dest: "{{ lodestar_beacon_node_dir_systemd }}/{{ lodestar_beacon_node_systemd_service_name }}.service"
+    owner: "{{ lodestar_beacon_node_user }}"
+    group: "{{ lodestar_beacon_node_group }}"
+    mode: "0644"
+  notify:
+    - lodestar - restart
+
+- name: lodestar - ensure service started
+  systemd:
+    name: "{{ lodestar_beacon_node_systemd_service_name }}"
+    state: started
+    daemon_reload: true
+    enabled: true

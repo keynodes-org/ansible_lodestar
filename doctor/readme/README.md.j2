@@ -1,0 +1,20 @@
+{% if not append | deep_get(role, "internal.append") %}
+{% set meta = role.meta | default({}) %}
+# {{ meta.name.value | save_join(" ") }}
+{% endif %}
+{% if description | deep_get(meta, "description.value") %}
+
+{{ meta.description.value | save_join(" ") }}
+{% endif %}
+
+{#      TOC      #}
+{% include '_toc.j2' %}
+
+{#      Vars      #}
+{% include '_vars.j2' %}
+
+{#      Tags      #}
+{% include '_tag.j2' %}
+
+{#      Meta      #}
+{% include '_meta.j2' %}
