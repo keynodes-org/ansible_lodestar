@@ -12,6 +12,7 @@ docs:
 	ansible-doctor .
 
 init:
+	@make pre-commit-config
 	@make install-requirements
 
 pre-commit-config:
