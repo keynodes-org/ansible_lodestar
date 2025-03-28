@@ -5,6 +5,7 @@ platforms:
   - name: lodestar-ubuntu22
     image: jrei/systemd-ubuntu:22.04
     command: /sbin/init
+    cgroupns_mode: host
     capabilities:
       - SYS_ADMIN
     volumes:
