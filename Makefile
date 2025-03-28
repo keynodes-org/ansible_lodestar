@@ -12,9 +12,13 @@ docs:
 	ansible-doctor .
 
 init:
+	@make pre-commit-config
 	@make install-requirements
 
-pre-commit-config:
+pre-commit-install:
+	@command -v pre-commit >/dev/null 2>&1 || (echo "pre-commit not found, installing..." && pip install pre-commit)
+
+pre-commit-config: pre-commit-install
 	pre-commit clean
 	pre-commit uninstall
 	pre-commit install --install-hooks -f

@@ -21,7 +21,7 @@ Make
 ----
 
 `make init` - Prepare environment
-`make test` - Run molecule tests (`molecule -v test`)  
+`make test` - Run molecule tests (`molecule -v test`)
 `make docs` - Auto-generate `README` (`ansible-doctor`)
 
 Role install
@@ -48,7 +48,7 @@ Example of using in `requirements.yml`:
 ---
 roles:
   - name: lodestar
-    src: git+git@github.com:keynodes-org/ansible_lodestar.git 
+    src: git+git@github.com:keynodes-org/ansible_lodestar.git
     version: main
 ```
 
@@ -58,7 +58,7 @@ How to use in playbook:
 ```yaml
 - hosts: ansible_hostname
   roles:
-    - role: ansible-lodestar
+    - role: keynodes.ansible_lodestar
 ```
 
 Variables
