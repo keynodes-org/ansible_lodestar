@@ -1,6 +1,6 @@
 name: Lodestar beacon node molecule test
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   test:

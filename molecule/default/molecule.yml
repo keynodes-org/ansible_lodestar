@@ -5,12 +5,8 @@ platforms:
   - name: lodestar-ubuntu22
     image: jrei/systemd-ubuntu:22.04
     command: /sbin/init
-    platform: linux/amd64
     capabilities:
       - SYS_ADMIN
-    options:
-      docker_extra_args:
-        - --cgroupns=host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true

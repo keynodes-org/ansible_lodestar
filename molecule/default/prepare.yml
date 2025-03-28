@@ -9,5 +9,4 @@
           - curl
           - openssl
           - nano
-          - gcc
         update_cache: true
